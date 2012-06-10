@@ -2,13 +2,16 @@ Source: libudperl-perl
 Section: perl
 Priority: optional
 Maintainer: Alexander Wirt <formorer@debian.org>
-Build-Depends: debhelper (>= 8),
- perl
+Build-Depends: debhelper (>= 8), perl
 Standards-Version: 3.9.3
 Homepage: http://search.cpan.org/dist/UDPerl/
 
 Package: libudperl-perl
 Architecture: all
-Depends: ${misc:Depends}, ${perl:Depends}
+Depends: libapp-cmd-perl,
+         libapp-cmd-plugin-prompt-perl,
+         libnet-ldap-perl,
+         ${misc:Depends},
+         ${perl:Depends}
 Description: manage userinformation in LDAP
  manage userinformation like passwords or sshkeys in ldap
