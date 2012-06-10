@@ -11,6 +11,7 @@ Architecture: all
 Depends: libapp-cmd-perl,
          libapp-cmd-plugin-prompt-perl,
          libnet-ldap-perl,
+         libperl6-slurp-perl,
          ${misc:Depends},
          ${perl:Depends}
 Description: manage userinformation in LDAP
