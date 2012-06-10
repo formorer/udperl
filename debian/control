@@ -11,4 +11,4 @@ Package: libudperl-perl
 Architecture: all
 Depends: ${misc:Depends}, ${perl:Depends}
 Description: manage userinformation in LDAP
- udperl allows to manage userinformation like passwords or sshkeys in ldap
+ manage userinformation like passwords or sshkeys in ldap
