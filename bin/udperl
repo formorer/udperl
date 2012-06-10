@@ -4,6 +4,64 @@ use strict;
 use warnings;
 use lib 'lib/';
 
+=pod
+
+=head1 NAME
+
+udperl - manage personal user information in ldap
+
+=head1 SYNOPSIS
+
+udperl B<command> [B<options>]
+
+=head1 DESCRIPTION
+
+udperl allows you to manage you user information stored in LDAP. It manages
+some parts of POSIX and OpenSSH-LPK.
+
+=head1 COMMANDS
+
+=over 4
+
+=item B<help> I<command>
+
+lists help for I<command>
+
+=item B<commands>
+
+lists available commands
+
+=item B<password>
+
+change LDAP password
+
+=item B<sshkey> B<subcommand>
+
+=over 6
+
+=item B<list>
+
+list ssh public keys stored in LDAP
+
+=item B<remove>
+
+starts an interactive dialog to public keys from LDAP
+
+=item B<add> I<--file|-f keyfile>
+
+reads a keyfiles via --file and adds the keys(s) to LDAP.
+The keyfile may contain several public keys separated by newlines.
+
+=back
+
+=back
+
+=head1 AUTHOR
+
+Alexander Wirt
+
+=cut
+
 use UDPerl;
 
 UDPerl->run;

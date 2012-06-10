@@ -11,7 +11,6 @@ use warnings;
 
 use Net::LDAP;
 
-
 sub description {
     return "Show userinformation stored in LDAP";
 }
@@ -21,11 +20,11 @@ sub abstract {
 }
 
 sub execute {
-    my ($self, $opt, $args) = @_;
+    my ( $self, $opt, $args ) = @_;
     my $auth = UDPerl::Auth->new;
     my $ldap = $auth->auth();
 
-    my $uid   = getpwuid($<);
+    my $uid    = getpwuid($<);
     my $search = $ldap->search(
         base   => 'dc=grml,dc=org',
         filter => "(uid=$uid)"
@@ -37,14 +36,15 @@ sub execute {
     }
     my $user = $search->entry(0);
     say "login: " . $user->get_value('uid');
-    my $gecos = $user->get_value('gecos') ? $user->get_value('gecos') : 'unset';
+    my $gecos =
+        $user->get_value('gecos') ? $user->get_value('gecos') : 'unset';
     say "gecos: " . $gecos;
     say "uid: " . $user->get_value('uidNumber');
     say "gid: " . $user->get_value('gidNumber');
     say "home: " . $user->get_value('homeDirectory');
     say "shell: " . $user->get_value('loginShell');
-    say "hosts:\n\t " . join("\n\t", $user->get_value('host'));
-    say "sshkeys:\n\t" . join("\n\t", $user->get_value('sshPublicKey'));
+    say "hosts:\n\t " . join( "\n\t", $user->get_value('host') );
+    say "sshkeys:\n\t" . join( "\n\t", $user->get_value('sshPublicKey') );
 
 }
 

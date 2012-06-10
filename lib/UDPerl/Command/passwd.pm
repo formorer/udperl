@@ -11,7 +11,6 @@ use warnings;
 
 use Net::LDAP;
 
-
 sub description {
     return "Update LDAP Password";
 }
@@ -21,28 +20,30 @@ sub abstract {
 }
 
 sub execute {
-    my ($self, $opt, $args) = @_;
+    my ( $self, $opt, $args ) = @_;
     ReadMode(4);
     my $old_pw = prompt_str('(current) LDAP password');
     print "\n";
-    my $auth = UDPerl::Auth->new;
-    my $ldap = $auth->auth($old_pw);
+    my $auth    = UDPerl::Auth->new;
+    my $ldap    = $auth->auth($old_pw);
     my $new_pw1 = prompt_str('Enter new LDAP password');
     print "\n";
     my $new_pw2 = prompt_str('Retype new LDAP password');
     print "\n";
-    if ($new_pw1 ne $new_pw2) {
+
+    if ( $new_pw1 ne $new_pw2 ) {
         say STDERR "Sorry, passwords do not match";
         exit 1;
     }
     ReadMode(0);
     my $rootdse = $ldap->root_dse();
-    if ($rootdse->supported_extension('1.3.6.1.4.1.4203.1.11.1')) {
+    if ( $rootdse->supported_extension('1.3.6.1.4.1.4203.1.11.1') ) {
         require Net::LDAP::Extension::SetPassword;
         my $mesg = $ldap->set_password(
             oldpasswd => $old_pw,
-            newpasswd => $new_pw1);
-        if ($mesg->code()) {
+            newpasswd => $new_pw1
+        );
+        if ( $mesg->code() ) {
             say STDERR "Could not change password: " . $mesg->code();
             exit 1;
         } else {

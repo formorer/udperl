@@ -2,11 +2,8 @@
 
 package UDPerl;
 
-my $VERSION = '0.1';
+my $VERSION = '0.2';
 
-use App::Cmd::Setup -app => {
-    plugins => [ qw(Prompt) ],
-};
-
+use App::Cmd::Setup -app => { plugins => [qw(Prompt)], };
 
 1;

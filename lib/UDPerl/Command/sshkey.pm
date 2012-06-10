@@ -39,8 +39,8 @@ sub execute {
     my $command = shift( @{$args} );
     if ( !$command ) {
         say STDERR "Command for sshekys needed.\nSee `"
-          . $self->app->arg0
-          . " help sshkeys`";
+            . $self->app->arg0
+            . " help sshkeys`";
         exit 1;
     }
 
@@ -74,12 +74,11 @@ sub listkeys {
     if ( !@keys ) {
         print STDERR color 'red';
         print STDERR "No keys found. Use "
-          . $self->app->arg0
-          . " sshkeys add to store a key in LDAP";
+            . $self->app->arg0
+            . " sshkeys add to store a key in LDAP";
         print STDERR color 'reset';
         exit 1;
-    }
-    else {
+    } else {
         my $num = 1;
         say "You have the following sshkeys stored in LDAP:\n";
         foreach my $key (@keys) {
@@ -94,15 +93,17 @@ sub listkeys {
 
 sub deletekeys {
     my ( $self, $opt, $args ) = @_;
+
     #first get our keys
-    my $auth         = UDPerl::Auth->new;
-    my $ldap         = $auth->auth;
-    my @keys         = _get_keys($ldap);
+    my $auth   = UDPerl::Auth->new;
+    my $ldap   = $auth->auth;
+    my @keys   = _get_keys($ldap);
     my $accept = 0;
-    while (! $accept) {
-        if (scalar(@keys) == 0) {
-            my $rc = prompt_yn "No keys left, removing all keys. Are you sure?";
-            exit if ! $rc;
+    while ( !$accept ) {
+        if ( scalar(@keys) == 0 ) {
+            my $rc =
+                prompt_yn "No keys left, removing all keys. Are you sure?";
+            exit if !$rc;
             break;
         }
         my $i = 1;
@@ -113,13 +114,13 @@ sub deletekeys {
             say $key;
             $i++;
         }
-        my $result =
-          prompt_str("Which key do you want to remove (a for accept, q for quit)");
+        my $result = prompt_str(
+            "Which key do you want to remove (a for accept, q for quit)");
         given ($result) {
             when (/^a/i) { $accept = 1; }
             when (/^q/i) { exit; }
             when (/[0-9]+/) {
-                @keys = grep { $_ ne $keys[$result-1] } @keys;
+                @keys = grep { $_ ne $keys[ $result - 1 ] } @keys;
             }
             default { say "Invalid input" }
         }
@@ -135,8 +136,9 @@ sub deletekeys {
         exit 1;
     }
     my $user_dn = $search->entry(0)->dn();
-    my $result = $ldap->modify( $user_dn, replace => { 'sshPublicKey' => \@keys } );
-    if ($result->code) {
+    my $result =
+        $ldap->modify( $user_dn, replace => { 'sshPublicKey' => \@keys } );
+    if ( $result->code ) {
         say STDERR "Failed to update sshkeys: ", $result->error;
         exit 1;
     } else {
@@ -144,6 +146,7 @@ sub deletekeys {
         exit;
     }
 }
+
 sub addkeys {
     my ( $self, $opt, $args ) = @_;
 
@@ -164,10 +167,9 @@ sub addkeys {
     foreach my $new_key (@keys) {
         if ( $new_key !~ /^ssh-.*/ ) {
             say STDERR
-"Line $i does not look like a valid ssh public key (sss-{rsa,dsa} ..)";
+                "Line $i does not look like a valid ssh public key (sss-{rsa,dsa} ..)";
             @keys = grep { $_ ne $new_key } @keys;
-        }
-        elsif ( $current_keys{$new_key} ) {
+        } elsif ( $current_keys{$new_key} ) {
             say STDERR "Line $i already defined. Skipping";
             @keys = grep { $_ ne $new_key } @keys;
         }
@@ -189,7 +191,8 @@ sub addkeys {
     }
 
     my $user_dn = $search->entry(0)->dn();
-    my $result = $ldap->modify( $user_dn, add => { 'sshPublicKey' => \@keys } );
+    my $result =
+        $ldap->modify( $user_dn, add => { 'sshPublicKey' => \@keys } );
     $result->code && warn "failed to add entry: ", $result->error;
 }
 
