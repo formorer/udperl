@@ -1,0 +1,9 @@
+bin/udperl
+Build.PL
+lib/UDPerl.pm
+lib/UDPerl/Auth.pm
+lib/UDPerl/Command/.sshkey.pm.swp
+lib/UDPerl/Command/info.pm
+lib/UDPerl/Command/passwd.pm
+lib/UDPerl/Command/sshkey.pm
+MANIFEST			This list of files
