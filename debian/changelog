@@ -1,3 +1,9 @@
+libudperl-perl (0.2) unstable; urgency=low
+
+  * add some docs 
+
+ -- Alexander Wirt <formorer@debian.org>  Sun, 10 Jun 2012 23:08:30 +0200
+
 libudperl-perl (0.1) unstable; urgency=low
 
   * Initial Release.
