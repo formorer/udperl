@@ -7,6 +7,7 @@ my $build = Module::Build->new
         module_name => 'UDPerl',
         dist_author => 'Alexander Wirt <formorer@formorer.de>',
         dist_abstract => 'manager userinformation in LDAP',
+        license      => 'gpl',
         requires    => {
             'Net::LDAP' => 0,
             'App::Cmd::Plugin::Prompt' => 0,
