@@ -1,8 +1,17 @@
+.perltidyrc
 bin/udperl
 Build.PL
+debian/changelog
+debian/compat
+debian/control
+debian/copyright
+debian/rules
+debian/source/format
+gen_manpage
 lib/UDPerl.pm
 lib/UDPerl/Auth.pm
 lib/UDPerl/Command/info.pm
 lib/UDPerl/Command/passwd.pm
 lib/UDPerl/Command/sshkey.pm
 MANIFEST			This list of files
+TODO
