@@ -14,16 +14,16 @@ use warnings;
 use Net::LDAP;
 
 sub opt_spec {
-    return ( [ "file|f=s", "Read keys(s) from file" ], );
+    return ( [ "file|f=s", "Read key(s) from file" ], );
 }
 
 sub description {
     my $desc = qq {Manage your ssh publickeys in LDAP
 
-The sshkeys command supports several subcommands:
+The sshkey command supports several subcommands:
 
 "list"      lists all sshkeys stored in LDAP
-"add"       reads a keyfiles via --file and adds the keys(s) to LDAP.
+"add"       reads a keyfiles via --file and adds the key(s) to LDAP.
             The keyfile may contain several public keys separed by newlines.
 "remove"    starts an interactive dialog to remove public keys from LDAP
 };
@@ -38,9 +38,9 @@ sub execute {
     my ( $self, $opt, $args ) = @_;
     my $command = shift( @{$args} );
     if ( !$command ) {
-        say STDERR "Command for sshekys needed.\nSee `"
+        say STDERR "Command for sshkey needed.\nSee `"
             . $self->app->arg0
-            . " help sshkeys`";
+            . " help sshkey`";
         exit 1;
     }
 
@@ -48,7 +48,7 @@ sub execute {
         when ("list") { $self->listkeys( $opt, $args ); }
         when ("add") { $self->addkeys( $opt, $args ); }
         when ("delete") { $self->deletekeys( $opt, $args ); }
-        default { say STDERR "Unkown command $command"; exit 1; }
+        default { say STDERR "Unknown command $command"; exit 1; }
     }
 }
 
@@ -167,7 +167,7 @@ sub addkeys {
     foreach my $new_key (@keys) {
         if ( $new_key !~ /^ssh-.*/ ) {
             say STDERR
-                "Line $i does not look like a valid ssh public key (sss-{rsa,dsa} ..)";
+                "Line $i does not look like a valid ssh public key (ssh-{rsa,dsa} ..)";
             @keys = grep { $_ ne $new_key } @keys;
         } elsif ( $current_keys{$new_key} ) {
             say STDERR "Line $i already defined. Skipping";
