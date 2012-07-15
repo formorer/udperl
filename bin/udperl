@@ -49,7 +49,7 @@ starts an interactive dialog to public keys from LDAP
 
 =item B<add> I<--file|-f keyfile>
 
-reads a keyfiles via --file and adds the keys(s) to LDAP.
+reads a keyfiles via --file and adds the key(s) to LDAP.
 The keyfile may contain several public keys separated by newlines.
 
 =back
